@@ -44,3 +44,29 @@ class Deck():
     def deal(self):
         card = random.choice(self.deck)
         return card
+
+
+class Hand():
+    """
+    Creates new hand (player) object
+    """
+
+    def __init__(self):
+        self.cards = []
+        self.values = 0
+        self.aces = 0
+
+    def add_card(self, card):
+        self.cards.append(card)
+        self.values += card.value
+        if card.rank == 'Ace':
+            self.aces += 1
+
+    def adjust_for_ace(self):
+        if self.aces != 0 and self.values > 21:
+            self.values -= 10
+            self.aces = 0
+
+    def __str__(self):
+        cards = ", ".join(str(x) for x in self.cards)
+        return f'cards: {cards} value: {self.values}'
