@@ -115,3 +115,17 @@ def hit(hand, deck):
     hand.add_card(card)
     hand.adjust_for_ace()
     deck.deck.remove(card)
+
+
+def check_win(chips, player, croupier):
+    """
+    Checks if there is a winner
+    """
+    if (player.values <= 21 and croupier.values > 21) or (player.values <= 21 and croupier.values <= 21 and player.values > croupier.values):
+        chips.win_bet()
+        print(f'Player wins.\nYour chips: {chips.total}\n')
+    elif player.values == croupier.values:
+        print(f"Draw\nYour chips: {chips.total}\n")
+    else:
+        chips.lose_bet()
+        print(f'Croupier wins\nYour chips: {chips.total}\n')
