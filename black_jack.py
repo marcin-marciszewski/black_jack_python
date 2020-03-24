@@ -105,3 +105,13 @@ def take_bet(chips):
                 print('Not enough chips\n')
         except ValueError:
             print('Please put valid value\n')
+
+
+def hit(hand, deck):
+    """
+    Chose random card from the deck and add it to the player's cards
+    """
+    card = deck.deal()
+    hand.add_card(card)
+    hand.adjust_for_ace()
+    deck.deck.remove(card)
