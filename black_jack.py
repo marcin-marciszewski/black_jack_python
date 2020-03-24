@@ -21,3 +21,26 @@ class Card():
 
     def __str__(self):
         return f'{self.rank} of {self.suit}'
+
+
+class Deck():
+    """
+    Creates new deck object
+    """
+
+    def __init__(self):
+        self.deck = []
+        for suit in suits:
+            for rank in ranks:
+                new_card = Card(suit, rank)
+                self.deck.append(new_card)
+
+    def __str__(self):
+        return ", ".join(str(x) for x in self.deck)
+
+    def shuffle(self):
+        random.shuffle(self.deck)
+
+    def deal(self):
+        card = random.choice(self.deck)
+        return card
