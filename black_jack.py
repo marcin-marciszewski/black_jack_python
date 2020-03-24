@@ -70,3 +70,19 @@ class Hand():
     def __str__(self):
         cards = ", ".join(str(x) for x in self.cards)
         return f'cards: {cards} value: {self.values}'
+
+
+class Chips():
+    """
+    Creates new chips for the player
+    """
+
+    def __init__(self):
+        self.total = 100
+        self.bet = 0
+
+    def win_bet(self):
+        self.total += (self.bet)*2
+
+    def lose_bet(self):
+        self.total -= self.bet
