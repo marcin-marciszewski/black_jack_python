@@ -7,6 +7,10 @@ values = {'Two': 2, 'Three': 3, 'Four': 4, 'Five': 5, 'Six': 6, 'Seven': 7,
           'Eight': 8, 'Nine': 9, 'Ten': 10, 'Jack': 10, 'Queen': 10, 'King': 10, 'Ace': 11}
 
 
+player_playing = True
+croupier_playing = False
+
+
 class Card():
     """
     Creates new card object
@@ -129,3 +133,67 @@ def check_win(chips, player, croupier):
     else:
         chips.lose_bet()
         print(f'Croupier wins\nYour chips: {chips.total}\n')
+
+
+def game():
+    print("Welcome to Black Jack game")
+    chips = Chips()
+    while True:
+        if chips.total == 0:
+            repeat()
+        new_deck = Deck()
+        new_deck.shuffle()
+        player = Hand()
+        croupier = Hand()
+        print("Please put your bet.")
+        take_bet(chips)
+        hit(player, new_deck)
+        hit(player, new_deck)
+        hit(croupier, new_deck)
+
+        print(f'Player:> {player}')
+        print(f'Croupier:> {croupier}\n')
+
+        while player_playing:
+            user_choice = input("Hit or stand, press h or s:> ")
+            if user_choice == 'h':
+                hit(player, new_deck)
+                print(f'Player:> {player}')
+                print(f'Croupier:> {croupier}\n')
+                if player.values > 21:
+                    chips.lose_bet()
+                    print(f'Croupier wins\nYour chips: {chips.total}\n')
+                    croupier_playing = False
+                    break
+            elif user_choice == 's':
+                croupier_playing = True
+                break
+
+        if croupier_playing:
+            while croupier.values <= 17:
+                hit(croupier, new_deck)
+                print(f'Player:> {player}')
+                print(f'Croupier:> {croupier}\n')
+                if croupier.values > 17:
+                    check_win(chips, player, croupier)
+                    break
+
+
+def repeat():
+    """
+    Asks the player if he wants to play again when chips = 0
+    """
+    answer = "x"
+    while answer.lower() != "yes" or answer.lower() != "no":
+        answer = input(
+            "No more chips. Do you want to play again? Yes or No:> ")
+        if answer.lower() == "yes" or answer.lower() == "no":
+            break
+    if answer.lower() == "yes":
+        game()
+    else:
+        print("Good bye.")
+        exit()
+
+
+game()
