@@ -43,9 +43,15 @@ class Deck():
         return ", ".join(str(x) for x in self.deck)
 
     def shuffle(self):
+        """
+        Shuffles the deck
+        """
         random.shuffle(self.deck)
 
     def deal(self):
+        """
+        Deals a random card to a player
+        """
         card = random.choice(self.deck)
         return card
 
@@ -61,12 +67,18 @@ class Hand():
         self.aces = 0
 
     def add_card(self, card):
+        """
+        Adds dealt card to player's cards
+        """
         self.cards.append(card)
         self.values += card.value
         if card.rank == 'Ace':
             self.aces += 1
 
     def adjust_for_ace(self):
+        """
+        Check if ace should give 1 or 11
+        """
         if self.aces != 0 and self.values > 21:
             self.values -= 10
             self.aces = 0
@@ -86,9 +98,15 @@ class Chips():
         self.bet = 0
 
     def win_bet(self):
+        """
+        Add chips to the account after winning
+        """
         self.total += (self.bet)*2
 
     def lose_bet(self):
+        """
+        Deduct chips after
+        """
         self.total -= self.bet
 
 
