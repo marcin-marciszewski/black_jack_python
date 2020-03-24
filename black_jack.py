@@ -86,3 +86,22 @@ class Chips():
 
     def lose_bet(self):
         self.total -= self.bet
+
+
+def take_bet(chips):
+    """
+    Take a bet from the user and checks how many chips left
+    """
+    while True:
+        try:
+            players_bet = int(input('How much you want to bet:> '))
+            if players_bet <= chips.total:
+                chips.bet = players_bet
+                remaining_chips = chips.total - players_bet
+                print(
+                    f'Your bet is: {players_bet}, you have {remaining_chips} remaining chips\n')
+                break
+            else:
+                print('Not enough chips\n')
+        except ValueError:
+            print('Please put valid value\n')
